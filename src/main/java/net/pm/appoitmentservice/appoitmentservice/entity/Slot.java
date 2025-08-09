@@ -3,32 +3,32 @@ package net.pm.appoitmentservice.appoitmentservice.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "slots")
-public class Slot {
+public class Slot  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long doctorId;
     private Long patientId;
 
-    private String date;      // yyyy-MM-dd
-    private String startTime; // HH:mm
-    private String endTime;   // HH:mm
-    private boolean booked;
-    @Column(length = 1000)
-    private String zoomJoinUrl;  // new
-    @Column(length = 1000)
-    private String zoomStartUrl; // new
+    private String date; // yyyy-MM-dd
+    private String startTime;
+    private String endTime;
 
-    public Slot() {}
+    private boolean booked;
+
+    @Column(columnDefinition = "TEXT")
+    private String zoomStartUrl;
+
+    @Column(columnDefinition = "TEXT")
+    private String zoomJoinUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "working_day_id")
+    private DoctorWorkingDay workingDay;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
-    public Long getDoctorId() { return doctorId; }
-    public void setDoctorId(Long doctorId) { this.doctorId = doctorId; }
 
     public Long getPatientId() { return patientId; }
     public void setPatientId(Long patientId) { this.patientId = patientId; }
@@ -45,9 +45,12 @@ public class Slot {
     public boolean isBooked() { return booked; }
     public void setBooked(boolean booked) { this.booked = booked; }
 
+    public String getZoomStartUrl() { return zoomStartUrl; }
+    public void setZoomStartUrl(String zoomStartUrl) { this.zoomStartUrl = zoomStartUrl; }
+
     public String getZoomJoinUrl() { return zoomJoinUrl; }
     public void setZoomJoinUrl(String zoomJoinUrl) { this.zoomJoinUrl = zoomJoinUrl; }
 
-    public String getZoomStartUrl() { return zoomStartUrl; }
-    public void setZoomStartUrl(String zoomStartUrl) { this.zoomStartUrl = zoomStartUrl; }
+    public DoctorWorkingDay getWorkingDay() { return workingDay; }
+    public void setWorkingDay(DoctorWorkingDay workingDay) { this.workingDay = workingDay; }
 }
